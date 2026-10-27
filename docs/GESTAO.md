@@ -1,6 +1,6 @@
 # Gestão do Romstamp
 
-Estado: documentação, mockups e modelos publicados na branch `main`. Cadastro das issues e configuração do quadro pendentes de acesso de escrita às ferramentas de gestão do GitHub.
+Estado: documentação, mockups e modelos publicados na branch `main`. Integração instalada e escrita em issues confirmada. Backlog cadastrado; Project, milestones e labels ainda pendentes.
 
 Repositório: [ODaviPedroso/Romstamp](https://github.com/ODaviPedroso/Romstamp). Visibilidade pública autorizada pelo idealizador. A pasta local acompanha `origin/main`.
 
@@ -22,7 +22,7 @@ Labels propostas: `tipo:funcionalidade`, `tipo:tecnico`, `tipo:documentacao`, `t
 
 ## Marcos e backlog inicial
 
-Cada linha deve virar uma issue no GitHub; estes títulos ainda não representam issues publicadas. A integração retornou `403 Resource not accessible by integration` ao tentar cadastrá-las. Nenhuma issue foi criada nessa tentativa.
+As 19 tarefas estão publicadas como issues #1 a #19, respectivamente (G01 → #1, G02 → #2 etc.), com critérios de aceite e referências às dependências. Consulte a [lista de issues](https://github.com/ODaviPedroso/Romstamp/issues) e o [acompanhamento do MVP](https://github.com/ODaviPedroso/Romstamp/issues/20). Os marcos abaixo são agrupamentos planejados; ainda não são milestones nativos do GitHub.
 
 | ID local | Marco | Tarefa | Aceite principal | Dependência |
 | --- | --- | --- | --- | --- |
@@ -52,8 +52,8 @@ O marco 0 termina com frontend e API executando, PostgreSQL conectado, contrato 
 
 - [x] Publicar especificação, referências visuais e modelos de issues/PRs.
 - [x] Vincular a pasta local ao remoto e acompanhar `main`.
-- [ ] Disponibilizar acesso de escrita em issues na integração GitHub.
-- [ ] Criar as 19 issues acima e relacionar suas dependências pelos números reais.
+- [x] Disponibilizar acesso de escrita em issues na integração GitHub.
+- [x] Criar as 19 issues acima e relacionar suas dependências pelos números reais.
 - [ ] Criar os cinco milestones correspondentes às etapas 0 a 4.
 - [ ] Criar o Project com as cinco colunas propostas e vincular as issues.
 - [ ] Criar e aplicar as labels propostas.
