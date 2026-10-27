@@ -17,7 +17,7 @@ Fluxo principal: descobrir um desafio → entender suas regras → executar e gr
 - Rede social/fórum centrada em desafios gamers.
 - Múltiplos tipos de desafios, dos mais acessíveis aos extremos.
 - Validação por moderadores que pertencem à comunidade.
-- Prova em vídeo sem cortes; links do YouTube são a opção inicial considerada.
+- Prova em vídeo sem cortes para desafios de execução; platinas/100% aceitam um print da conta Steam, PSN ou Xbox, conforme decisão posterior do idealizador.
 - Stack inicial: .NET 10, Next.js com TypeScript e PostgreSQL. Interpretação adotada para o termo “Next.ts”.
 - Mockups existentes são referências iniciais de interface, não requisitos funcionais completos.
 
@@ -63,7 +63,7 @@ Exemplo: “Elden Ring” é o jogo; “Derrotar Malenia sem dano” é o desafi
 | Conta | Cadastro, confirmação de e-mail, login, recuperação e perfil | Login com provedores, personalização avançada |
 | Catálogo | Jogos cadastrados pela administração e desafios publicados | Importação de catálogo e curadoria distribuída |
 | Desafios | Proposição, revisão editorial, regras versionadas e filtros | Eventos, desafios cooperativos e categorias compostas |
-| Provas | Links YouTube e intervalos de vídeo, descrição e contexto | Outros provedores e evidências complementares automatizadas |
+| Provas | Links YouTube para execuções; upload de print para platina/100%, descrição e contexto | Outros provedores e evidências complementares automatizadas |
 | Homologação | Fila por jogo, parecer, complementação, recurso e auditoria | Múltiplos revisores e políticas por nível de risco |
 | Reconhecimento | Carimbo público, cofre e contagem de feitos únicos ativos | Rankings por categoria e pontuação calibrada |
 | Social | Seguir, aplaudir, comentar feitos e criar debates com respostas | Feed personalizado, mensagens e grupos |
@@ -98,18 +98,21 @@ Publicar uma nova versão não altera submissões anteriores. Alterações meram
 
 ### Platina e desafios de longa duração
 
-Uma platina pode exigir muitas sessões. Exigir uma única gravação contínua para todo tipo de desafio tornaria parte do catálogo impraticável. Proposta: cada regulamento declara uma modalidade de prova:
+Decisão do idealizador: desafios de platina/100% podem fazer parte do MVP e exigem somente um print que mostre a conta Steam, PSN ou Xbox e a conclusão correspondente no jogo. Não exigem vídeo nem gravação das sessões anteriores.
 
-- **Execução contínua:** um vídeo sem cortes cobrindo integralmente o intervalo exigido.
-- **Múltiplas sessões:** lista ordenada de vídeos contínuos, com checkpoints e cobertura exigida pelo regulamento.
+- **Platina/100%:** print com identificação da conta, jogo e troféu de platina ou indicação de 100% das conquistas. Não pressupor que toda plataforma ou jogo tenha uma conquista separada por obter todas as demais; a tela de conclusão também é aceita. O regulamento identifica edição e se o requisito inclui DLCs.
+- **Execução contínua:** um vídeo sem cortes cobrindo integralmente o intervalo exigido para desafios de habilidade ou execução.
+- **Múltiplas sessões:** modalidade futura para outros desafios longos, com política ainda a definir; não é requisito para aceitar platinas.
 
-No MVP, um print ou vídeo apenas do troféu final não comprova sozinho todos os requisitos. Para reduzir trabalho de revisão, lançar primeiro desafios de execução contínua e publicar desafios de platina somente quando houver política de prova viável. Essa escolha precisa de validação do idealizador.
+O envio de platina informa a plataforma e o identificador público da conta mostrada. O moderador confere se a imagem está legível e mostra a conta, o jogo e a conclusão exigida; solicita complemento se faltarem dados. Não exigir integração por API ou vinculação automática de conta no MVP. O print comprova o resultado exibido na plataforma; não confere automaticamente carimbos de no-hit, speedrun ou outras restrições de execução.
+
+Armazenar a imagem enviada como evidência da submissão, vinculada à revisão avaliada. Aplicar validação de formato, tamanho e recodificação de imagens, como nos demais uploads raster. Informar ao autor que a imagem será pública após homologação.
 
 ## 7. Envio e ciclo de homologação
 
 ### Dados do envio
 
-Desafio e versão; jogador; plataforma; edição/patch; data da execução; links de prova e sua ordem; início e fim de cada trecho; descrição; resultado mensurável quando aplicável; declaração de cumprimento das regras. Não há campo genérico que prometa comprovar automaticamente dano, equipamento ou tempo.
+Desafio e versão; jogador; plataforma; edição/patch; data da execução; descrição; resultado mensurável quando aplicável; declaração de cumprimento das regras. Para vídeo: links, ordem e início/fim dos trechos. Para platina/100%: imagem e identificador público da conta na plataforma, sem exigir campos de vídeo. Não há campo genérico que prometa comprovar automaticamente dano, equipamento ou tempo.
 
 Aceitar URLs YouTube normalizadas por identificador de vídeo, com validação de formato. Vídeos públicos ou não listados precisam estar acessíveis ao revisor; vídeos privados não são provas válidas. A publicação informa que o link da evidência ficará visível na página do feito.
 
@@ -249,7 +252,7 @@ desing/                 # preservar referências existentes
 | ChallengeRuleVersion | Desafio, número, regras e política de prova imutáveis, autor e publicação |
 | ChallengeProposal | Autor, proposta, estado editorial, parecer e desafio resultante |
 | Submission | Autor, desafio, versão de regras, estado, contexto, resultado e versão de concorrência |
-| SubmissionRevision / Evidence | Snapshot do envio, URLs normalizadas, ordem e intervalos |
+| SubmissionRevision / Evidence | Snapshot do envio; tipo vídeo ou imagem; URLs normalizadas/intervalos ou chave do objeto de imagem e conta da plataforma |
 | Review | Revisor, revisão avaliada, critérios, decisão e parecer |
 | Achievement / Stamp | Jogador, desafio, submissão aprovada, código público e estado de validade |
 | Appeal / Contestation | Decisão ou feito questionado, motivo, responsável e resolução |
@@ -337,7 +340,7 @@ As propostas acima permitem planejar o trabalho; estes pontos merecem validaçã
 | --- | --- | --- |
 | Quem cria desafios? | Qualquer jogador propõe; moderador publica | Evita catálogo sem regras verificáveis |
 | Quantos revisores? | Um independente no beta, com recurso independente | Menor fila, mas exige curadoria e auditoria |
-| Platina no lançamento? | Somente com regulamento de múltiplas sessões viável | Evita exigir vídeos impraticáveis ou provas insuficientes |
+| Platina no lançamento? | Aprovada: print da conta Steam/PSN/Xbox mostrando platina ou 100% | Revisão humana simples; vídeo dispensado para essa categoria |
 | Regras de prova | Específicas por desafio; YouTube inicialmente | Depende de acesso contínuo ao provedor externo |
 | Rankings | Sem ranking global no MVP | Não compara arbitrariamente desafios de naturezas diferentes |
 | Emuladores, mods e versões | Declarados por regulamento | Evita equivalência implícita entre condições distintas |
@@ -357,7 +360,7 @@ Confirmado pelo idealizador em 26/10/2026:
 - Cada prova é avaliada por um moderador autorizado e independente do autor da submissão.
 - Recursos são julgados por outra pessoa autorizada e independente da revisão original. Na ausência de alguém elegível, o recurso aguarda designação.
 
-Essas decisões substituem o caráter de proposta dos itens correspondentes neste documento. Política de platinas/múltiplas sessões, prazos e disponibilidade dos moderadores continuam pendentes.
+Essas decisões substituem o caráter de proposta dos itens correspondentes neste documento. Platinas/100% aceitam print conforme a seção 6. Prazos, disponibilidade dos moderadores e provas de múltiplas sessões para outros tipos de desafios continuam pendentes.
 
 ### Seleção inicial de jogos — decisão do idealizador
 
