@@ -1,0 +1,5 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Romstamp.Api/Romstamp.Api.csproj" />
+  </Folder>
+</Solution>
