@@ -1,0 +1,16 @@
+name: Problema
+description: Comportamento incorreto ou regressão
+body:
+  - type: textarea
+    id: reproducao
+    attributes:
+      label: Como reproduzir
+      description: Passos, ambiente e evidências sem dados sensíveis.
+    validations:
+      required: true
+  - type: textarea
+    id: esperado
+    attributes:
+      label: Resultado esperado e resultado observado
+    validations:
+      required: true
