@@ -64,7 +64,11 @@ Invoke-RestMethod http://localhost:5191/api/v1/health/ready
 Invoke-RestMethod http://localhost:3000/api/v1/health/ready
 ```
 
-Sem banco, a API deve continuar viva e a prontidão deve retornar 503. No navegador, o diagnóstico deve indicar indisponibilidade em vez de simular sucesso. Docker não estava disponível no ambiente durante a primeira implementação; a conexão positiva com PostgreSQL precisa ser validada em um ambiente com o banco em execução.
+Sem banco, a API deve continuar viva e a prontidão deve retornar 503. No navegador, o diagnóstico deve indicar indisponibilidade em vez de simular sucesso.
+
+Validação local realizada: container `romstamp-postgres-1` saudável; prontidão retornou HTTP 200 com PostgreSQL saudável tanto diretamente na API quanto pelo proxy do Next.js. Também foi validado o retorno 503 antes da configuração do banco.
+
+Se Docker não estiver no PATH no Windows, a instalação por usuário pode estar em `$env:LOCALAPPDATA\Programs\DockerDesktop\resources\bin\docker.exe`. Nesse caso, adicione esse diretório ao PATH do terminal atual antes dos comandos Compose.
 
 - [Especificação de produto e arquitetura](docs/ESPECIFICACAO.md)
 - [Gestão, marcos e backlog inicial](docs/GESTAO.md)
