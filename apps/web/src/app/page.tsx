@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
+import type { components } from "@/lib/api/schema";
 type State = "idle" | "checking" | "healthy" | "unhealthy";
 export default function Home() {
   const [api, setApi] = useState<State>("idle");
@@ -11,7 +12,7 @@ export default function Home() {
     async function probe(path: string): Promise<State> {
       try {
         const response = await fetch(`/api/v1/health/${path}`, { cache: "no-store", signal: AbortSignal.timeout(8000) });
-        const result = await response.json();
+        const result: components["schemas"]["HealthResponse"] = await response.json();
         return response.ok && result.status === "healthy" ? "healthy" : "unhealthy";
       } catch { return "unhealthy"; }
     }

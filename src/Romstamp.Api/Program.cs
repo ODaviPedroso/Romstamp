@@ -1,36 +1,38 @@
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Npgsql;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddProblemDetails();
+builder.Services.AddOpenApi();
 builder.Services.AddHealthChecks()
     .AddCheck<PostgresHealthCheck>("postgres", tags: ["ready"], timeout: TimeSpan.FromSeconds(5));
 
 var app = builder.Build();
 app.UseExceptionHandler();
-app.MapHealthChecks("/api/v1/health/live", new HealthCheckOptions
+if (app.Environment.IsDevelopment()) app.MapOpenApi();
+app.MapGet("/api/v1/health/live", (HttpContext context) =>
+    WriteHealthResponse(context, new HealthResponse("healthy", [])))
+    .WithName("GetLiveness").WithTags("Health")
+    .WithSummary("Verifica se o processo da API está ativo.")
+    .Produces<HealthResponse>();
+app.MapGet("/api/v1/health/ready", async (HttpContext context, HealthCheckService healthChecks) =>
 {
-    Predicate = _ => false,
-    ResponseWriter = WriteHealthResponse
-});
-app.MapHealthChecks("/api/v1/health/ready", new HealthCheckOptions
-{
-    Predicate = check => check.Tags.Contains("ready"),
-    ResponseWriter = WriteHealthResponse
-});
+    var report = await healthChecks.CheckHealthAsync(check => check.Tags.Contains("ready"), context.RequestAborted);
+    var response = new HealthResponse(report.Status.ToString().ToLowerInvariant(),
+        report.Entries.ToDictionary(entry => entry.Key, entry => entry.Value.Status.ToString().ToLowerInvariant()));
+    return WriteHealthResponse(context, response);
+}).WithName("GetReadiness").WithTags("Health")
+    .WithSummary("Verifica se a API consegue consultar o PostgreSQL.")
+    .Produces<HealthResponse>().Produces<HealthResponse>(StatusCodes.Status503ServiceUnavailable);
 app.Run();
 
-static Task WriteHealthResponse(HttpContext context, HealthReport report)
+static IResult WriteHealthResponse(HttpContext context, HealthResponse response)
 {
     context.Response.Headers.CacheControl = "no-store";
-    return context.Response.WriteAsJsonAsync(new
-    {
-        status = report.Status.ToString().ToLowerInvariant(),
-        checks = report.Entries.ToDictionary(entry => entry.Key,
-            entry => entry.Value.Status.ToString().ToLowerInvariant())
-    });
+    return Results.Json(response, statusCode: response.Status == "healthy" ? 200 : 503);
 }
+
+public sealed record HealthResponse(string Status, Dictionary<string, string> Checks);
 
 public sealed class PostgresHealthCheck(IConfiguration configuration) : IHealthCheck
 {

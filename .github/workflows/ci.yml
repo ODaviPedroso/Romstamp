@@ -1,0 +1,68 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  verify:
+    name: Build, contrato e integração
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:18
+        env:
+          POSTGRES_DB: romstamp
+          POSTGRES_USER: romstamp
+          POSTGRES_PASSWORD: ci-only-password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U romstamp -d romstamp"
+          --health-interval 5s --health-timeout 3s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: apps/web/package-lock.json
+      - run: dotnet restore
+      - run: dotnet build --no-restore --configuration Release
+      - run: npm ci
+        working-directory: apps/web
+      - name: Verificar API e exportar contrato
+        env:
+          ASPNETCORE_ENVIRONMENT: Development
+          ConnectionStrings__Postgres: Host=127.0.0.1;Port=5432;Database=romstamp;Username=romstamp;Password=ci-only-password;Timeout=3
+          API_BASE_URL: http://127.0.0.1:5191
+          OFFLINE_API_BASE_URL: http://127.0.0.1:5192
+        run: |
+          dotnet run --project src/Romstamp.Api --no-build -c Release --no-launch-profile --urls http://127.0.0.1:5191 > /tmp/api.log 2>&1 &
+          API_PID=$!
+          ConnectionStrings__Postgres='' dotnet run --project src/Romstamp.Api --no-build -c Release --no-launch-profile --urls http://127.0.0.1:5192 > /tmp/offline-api.log 2>&1 &
+          OFFLINE_PID=$!
+          trap 'kill "$API_PID" "$OFFLINE_PID" 2>/dev/null || true' EXIT
+          for attempt in {1..30}; do
+            if curl -fsS http://127.0.0.1:5192/api/v1/health/live > /dev/null; then break; fi
+            sleep 1
+          done
+          node scripts/verify-api.mjs
+      - run: npm run api:types
+        working-directory: apps/web
+      - name: Verificar contrato e tipos versionados
+        run: git diff --exit-code -- docs/api/openapi.json apps/web/src/lib/api/schema.d.ts
+      - run: npm run lint
+        working-directory: apps/web
+      - run: npm run typecheck
+        working-directory: apps/web
+      - run: npm run build
+        working-directory: apps/web

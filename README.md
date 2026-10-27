@@ -49,6 +49,23 @@ Abra `http://localhost:3000` e clique em **Verificar conexão**. O Next.js encam
 
 ## Verificações
 
+A CI em `.github/workflows/ci.yml` executa builds, lint, checagem de tipos, teste HTTP com PostgreSQL temporário e validação do contrato em pushes na `main` e pull requests. A senha de CI é descartável e usada somente no serviço efêmero do runner.
+
+### Contrato da API
+
+Em desenvolvimento, `http://localhost:5191/openapi/v1.json` expõe o documento gerado pela API. Em produção esse endpoint não é publicado. O snapshot versionado está em `docs/api/openapi.json`; os tipos do frontend são derivados dele e não devem ser editados manualmente.
+
+Após alterar endpoints, mantenha API e banco em execução e rode na raiz:
+
+```powershell
+node scripts/verify-api.mjs
+cd apps/web
+npm run api:types
+npm run typecheck
+```
+
+O script verifica saúde e esquema e exporta o contrato sem o endereço do ambiente. Aceita `API_BASE_URL` e, opcionalmente, `OFFLINE_API_BASE_URL` para testar uma segunda API sem conexão configurada (live 200, ready 503). A CI exige que contrato e tipos gerados correspondam aos arquivos versionados.
+
 ```powershell
 dotnet build
 cd apps/web
