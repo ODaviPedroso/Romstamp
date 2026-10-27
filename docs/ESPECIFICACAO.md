@@ -348,6 +348,17 @@ As propostas acima permitem planejar o trabalho; estes pontos merecem validaçã
 
 Riscos centrais: vídeos longos tornam a moderação cara; pouca gente revisando gera abandono; conluio reduz credibilidade; vídeo externo pode desaparecer; muitos desafios semelhantes fragmentam a comunidade. Respostas iniciais: lançamento curado, lista de critérios objetiva, escopo por jogo, independência de recursos, histórico auditável e nenhuma recompensa baseada somente em volume de aprovação.
 
+### Governança do beta — decisões aprovadas
+
+Confirmado pelo idealizador em 26/10/2026:
+
+- Qualquer jogador autenticado pode propor desafios.
+- Moderadores autorizados para o jogo revisam e publicam os desafios e seus regulamentos.
+- Cada prova é avaliada por um moderador autorizado e independente do autor da submissão.
+- Recursos são julgados por outra pessoa autorizada e independente da revisão original. Na ausência de alguém elegível, o recurso aguarda designação.
+
+Essas decisões substituem o caráter de proposta dos itens correspondentes neste documento. Política de platinas/múltiplas sessões, prazos e disponibilidade dos moderadores continuam pendentes.
+
 ### Seleção inicial de jogos — decisão do idealizador
 
 Seleção registrada em 26/10/2026: Elden Ring, Sekiro, Grand Theft Auto V, Call of Duty (o título mais recente já lançado na data de definição do catálogo), Dark Souls, Dark Souls II e Dark Souls III. A expressão “série Souls” foi delimitada pelo idealizador aos três Dark Souls.
