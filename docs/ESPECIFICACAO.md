@@ -348,6 +348,12 @@ As propostas acima permitem planejar o trabalho; estes pontos merecem validaçã
 
 Riscos centrais: vídeos longos tornam a moderação cara; pouca gente revisando gera abandono; conluio reduz credibilidade; vídeo externo pode desaparecer; muitos desafios semelhantes fragmentam a comunidade. Respostas iniciais: lançamento curado, lista de critérios objetiva, escopo por jogo, independência de recursos, histórico auditável e nenhuma recompensa baseada somente em volume de aprovação.
 
+### Seleção inicial de jogos — decisão do idealizador
+
+Seleção registrada em 26/10/2026: Elden Ring, Sekiro, Grand Theft Auto V, Call of Duty (o título mais recente já lançado na data de definição do catálogo), Dark Souls, Dark Souls II e Dark Souls III. A expressão “série Souls” foi delimitada pelo idealizador aos três Dark Souls.
+
+A seleção define os jogos pretendidos, mas ainda depende de moderadores disponíveis e regulamentos para ativar desafios. Edições, remasters, DLCs e patches aceitos serão definidos por desafio; não são automaticamente equivalentes. As demais propostas da seção 15 continuam pendentes de validação.
+
 ## 16. Referências técnicas
 
 Fontes oficiais consultadas para orientar a arquitetura; versões exatas devem ser fixadas ao criar os projetos:
