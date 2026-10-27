@@ -1,8 +1,8 @@
 # Gestão do Romstamp
 
-Estado: estrutura local preparada; publicação e configuração no GitHub pendentes.
+Estado: documentação, mockups e modelos publicados na branch `main`. Cadastro das issues e configuração do quadro pendentes de acesso de escrita às ferramentas de gestão do GitHub.
 
-Destino solicitado: conta ODaviPedroso. Repositório proposto: Romstamp, privado inicialmente.
+Repositório: [ODaviPedroso/Romstamp](https://github.com/ODaviPedroso/Romstamp). Visibilidade pública autorizada pelo idealizador. A pasta local acompanha `origin/main`.
 
 ## Fluxo
 
@@ -22,7 +22,7 @@ Labels propostas: `tipo:funcionalidade`, `tipo:tecnico`, `tipo:documentacao`, `t
 
 ## Marcos e backlog inicial
 
-Cada linha vira uma issue no GitHub; estes títulos ainda não representam issues publicadas.
+Cada linha deve virar uma issue no GitHub; estes títulos ainda não representam issues publicadas. A integração retornou `403 Resource not accessible by integration` ao tentar cadastrá-las. Nenhuma issue foi criada nessa tentativa.
 
 | ID local | Marco | Tarefa | Aceite principal | Dependência |
 | --- | --- | --- | --- | --- |
@@ -47,6 +47,19 @@ Cada linha vira uma issue no GitHub; estes títulos ainda não representam issue
 | G19 | 4 — Governança e beta | Preparar segurança e operação do beta | MFA administrativo, limites, logs, backup restaurado e fluxo completo verificado | G17, G18 |
 
 O marco 0 termina com frontend e API executando, PostgreSQL conectado, contrato disponível e CI passando. O marco 2 deve permitir demonstrar o ciclo completo entre jogador e moderador antes de ampliar as interações sociais.
+
+## Configuração pendente no GitHub
+
+- [x] Publicar especificação, referências visuais e modelos de issues/PRs.
+- [x] Vincular a pasta local ao remoto e acompanhar `main`.
+- [ ] Disponibilizar acesso de escrita em issues na integração GitHub.
+- [ ] Criar as 19 issues acima e relacionar suas dependências pelos números reais.
+- [ ] Criar os cinco milestones correspondentes às etapas 0 a 4.
+- [ ] Criar o Project com as cinco colunas propostas e vincular as issues.
+- [ ] Criar e aplicar as labels propostas.
+- [ ] Configurar checks obrigatórios após existir CI funcional.
+
+As ferramentas da integração disponíveis nesta configuração não oferecem criação de Projects, milestones ou labels. Essas ações exigem a interface do GitHub ou outro cliente autenticado com as permissões adequadas. Não há CI ou código de aplicação implementado neste momento.
 
 ## Rotina de acompanhamento
 
